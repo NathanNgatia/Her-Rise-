@@ -5,7 +5,7 @@
       <div class="hero-content">
         <h1>Welcome to HerRise</h1>
         <p>Forge a path to meet your destiny.</p>
-        <v-btn class="cta-button" href="/about-us"
+        <v-btn class="cta-button" href="/AboutView.vue"
         >Explore our Website.</v-btn><br>  
       </div>
     </section>
