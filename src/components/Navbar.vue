@@ -42,7 +42,7 @@
 
     <v-spacer></v-spacer>
         <div>
-            <v-btn to="/" color="black" dark >Home </v-btn>
+            <v-btn to="/home" color="black" dark >Home </v-btn>
             
         </div>
         <div>
@@ -50,7 +50,7 @@
             
         </div>
         <div>
-            <v-btn to="/contact" color="black" dark > ContactUs </v-btn>
+            <v-btn to="/contact-us" color="black" dark > Contact Us </v-btn>
             
         </div>
         <div>
