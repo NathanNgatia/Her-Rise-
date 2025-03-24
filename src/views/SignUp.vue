@@ -7,10 +7,10 @@
               <v-form @submit.prevent="register" ref="form">
                 <div class="text-center mb-6">
                   <h1 class="text-h4 font-weight-bold teal--text text--darken-2">
-                    Join Restaurant Island
+                    Join HerRise
                   </h1>
                   <p class="text-subtitle-1 mt-2">
-                    Create your account to start your culinary journey
+                    Create your account to start your career journey
                   </p>
                 </div>
   
@@ -112,6 +112,7 @@
         </v-row>
       </v-container>
     </v-main>
+    <router-link/>
   </template>
   
   <script setup>
@@ -193,7 +194,7 @@
   
   <style scoped>
   .signup-background {
-    background: linear-gradient(to right, #e0f2f1, #b2dfdb);
+    background: linear-gradient( #eb9b14, #da2561);
     min-height: 100vh;
   }
   </style>

@@ -1,14 +1,15 @@
 <template>
   <v-navigation-drawer
     v-model="drawer"
-    color="#1ecbe1"
+    style="background: linear-gradient( #eb9b14, #da2561);"
     light
     app
     v-if="isAuthenticated || !hideForUnauthenticated"
   >
+  
     <v-layout column align-center>
       <v-flex class="my-2 mx-auto text-center">
-        <v-avatar size="150">
+        <v-avatar size="130">
           <v-img :src="userAvatar"></v-img>
         </v-avatar>
         <p class="white--text subheading mt-1 text-center">{{ userName }}</p>
@@ -23,43 +24,39 @@
         active-class="border"
       >
         <v-list-item-content class="d-flex align-center">
-          <v-icon>{{ path.icon }}</v-icon>
+          <v-icon v-if="path.icon">{{ path.icon }}</v-icon>
+          <span v-else v-html="path.customIcon"></span>
           <span class="ml-2">{{ path.text }}</span>
         </v-list-item-content>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <v-app-bar color="#1ecbe1">
-    <v-app-bar-nav-icon
+  <v-app-bar color="#eb9b14" light app>
+    <v-app-bar-nav-icon 
       @click.stop="drawer = !drawer"
-      v-if="isAuthenticated || !hideForUnauthenticated"
     ></v-app-bar-nav-icon>
 
-    <v-toolbar-title class="text-uppercase">
-      <span class="font-weight-light">WomenDigi</span>
+    <v-toolbar-title class="text-mixed">
+      <span class="font-weight-light">HerRise</span>
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
-    <v-menu offset-y>
-      <template v-slot:activator="{ props }">
-        <v-btn text v-bind="props">
-          <v-icon left>mdi-chevron-down</v-icon>
-          <span>Menu</span>
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="path in filteredPaths"
-          :key="path.text"
-          router
-          :to="path.route"
-          active-class="border"
-        >
-          <v-list-item-title>{{ path.text }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-    
+        <div>
+            <v-btn to="/" color="black" dark >Home </v-btn>
+            
+        </div>
+        <div>
+            <v-btn to="/about-us" color="black" dark >About </v-btn>
+            
+        </div>
+        <div>
+            <v-btn to="/contact" color="black" dark > ContactUs </v-btn>
+            
+        </div>
+        <div>
+            <v-btn to="/profile" color="black" dark > Profile </v-btn>
+
+        </div>
     <!-- Add logout button if authenticated -->
     <v-btn 
       v-if="isAuthenticated" 
@@ -104,7 +101,7 @@ const userName = computed(() => {
 const userAvatar = computed(() => {
   return currentUser.value && currentUser.value.user_photo
     ? currentUser.value.user_photo
-    : '/download.png'
+    : '/dea6a4e6-0b58-4479-b401-79d4e4b13ec8.jpeg'
 })
 
 // Handle logout
@@ -124,7 +121,6 @@ const allPaths = [
 
   // Authentication paths (show login when not authenticated, profile when authenticated)
   { icon: 'mdi-lock', text: 'Login', route: '/login', showWhenLoggedOut: true },
-  { icon: 'mdi-account', text: 'My Profile', route: '/profile', requiresAuth: true },
 
 
   // Admin/Backend paths
@@ -167,7 +163,18 @@ const filteredPaths = computed(() => {
 </script>
 
 <style scoped>
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Centering the logo vertically */
+}
+
+.logo {
+  width: 200px; /* Responsive size */
+  height: auto; /* Maintain aspect ratio */
+}
 .border {
-  border-left: 4px solid red;
+  border-right: 4px solid red;
 }
 </style>

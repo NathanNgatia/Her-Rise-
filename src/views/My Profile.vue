@@ -35,5 +35,5 @@
 </template>
 
 <script setup>
-// No additional setup logic needed
+import { ref } from 'vue'
 </script>

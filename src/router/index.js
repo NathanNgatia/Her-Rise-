@@ -1,50 +1,48 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import TestPage from '../views/TestPage.vue'
-import ContactUsView from '../views/ContactUs.vue'
-import LoginPage from '../views/LoginPage.vue'
-import SignUpPage from '../views/SignUp.vue'
-import WelcomePage from '../views/WelcomePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'Home',
+      component: () => imoort('../views/HomeView.vue')
     },
     {
       path: '/about-us',
-      name: 'about',      
-      component: AboutView
+      name: 'About',      
+      component: () => import('../views/AboutView.vue')
     },
     {
       path: '/test',
       name: 'TestPage',
-      component: TestPage
+      component: () => import('../views/TestPage.vue')
     },
     {
       path: '/login',
       name: 'LoginPage',
-      component: LoginPage
+      component: () => import('../views/LoginPage.vue')
     },
     {
-      path: '/sign-up',
+      path: '/signup',
       name: 'SignUpPage',
-      component: SignUpPage
+      component: () => import('../views/SignUp.vue')
     },
     {
       path: '/contact-us',
-      name: 'ContactUs',
-      component: ContactUsView
+      name: 'Contact Us',
+      component: () => import('../views/ContactUs.vue')
     },
     {
       path: '/welcome',
       name: 'Welcome',
-      component: WelcomePage
-    }
+      component: () => import('../views/WelcomePage.vue')
+    },
+    {
+      path: '/profile',
+      name: 'My Profile',
+      component: () => import('../views/My Profile.vue')  
+    },
   ]
 })
 

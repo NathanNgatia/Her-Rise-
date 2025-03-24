@@ -7,7 +7,7 @@
               <v-form @submit.prevent="handleLogin" ref="form">
                 <div class="text-center mb-6">
                   <h1 class="text-h4 font-weight-bold teal--text text--darken-2">Welcome Back</h1>
-                  <p class="text-subtitle-1 mt-2">Log in to your Restaurant Island account</p>
+                  <p class="text-subtitle-1 mt-2">Log in to your HerRise account</p>
                 </div>
                 <v-alert v-if="error" type="error" class="mb-4">{{ error }}</v-alert>
                 <v-text-field
@@ -113,13 +113,18 @@
         password: password.value
       })
       alert('Login successful')
-      router.push({ name: 'home' })
+      router.push({ name: 'Home' }) //Redirect after succesfull login
      
-      // Redirect after successful login
-      router.push('/welcome')
     } catch (err) {
       // Error is already handled by the auth service
       console.error('Login failed', err)
     }
   }
   </script>
+  
+  <style scoped>
+    .login-background {
+      background: linear-gradient( #eb9b14, #da2561);
+      min-height: 100vh;
+    }
+  </style>

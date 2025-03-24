@@ -1,4 +1,5 @@
 <template>
+  <router-link/>
     <v-main>
       <v-container class="contact-us py-8">
         <v-row>
@@ -75,11 +76,13 @@
                     <v-col cols="12">
                       <v-btn
                         type="submit"
-                        color="teal darken-1"
+                        color="#eb9b14"
                         size="large"
                         :disabled="!valid"
                         :loading="loading"
                         class="white--text"
+                        light
+                        app
                       >
                         Send Message
                       </v-btn>
@@ -112,7 +115,7 @@
   
                   <v-list-item prepend-icon="mdi-email" class="mb-2">
                     <v-list-item-title>Email</v-list-item-title>
-                    <v-list-item-subtitle>contact@restaurant-island.com</v-list-item-subtitle>
+                    <v-list-item-subtitle>contact@her-rise.com</v-list-item-subtitle>
                   </v-list-item>
   
                   <v-list-item prepend-icon="mdi-clock-outline" class="mb-4">
@@ -131,7 +134,7 @@
                     <v-btn icon color="light-blue-darken-1" class="mr-4">
                       <v-icon>mdi-twitter</v-icon>
                     </v-btn>
-                    <v-btn icon color="deep-purple-darken-1" class="mr-4">
+                    <v-btn icon color="deep-purple-darken-1" class="mr-4" href="https://www.instagram.com/her_rise/">
                       <v-icon>mdi-instagram</v-icon>
                     </v-btn>
                     <v-btn icon color="red-darken-1">
@@ -299,5 +302,4 @@
   .map-container:hover .map-overlay {
     opacity: 1;
   }
-  </style>
-  
+  </style>  
