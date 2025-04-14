@@ -2,10 +2,10 @@
     <v-container fluid class="welcome-background">
       <v-row justify="center" align="center" class="pt-16">
         <v-col cols="12" sm="10" md="8" lg="6">
-          <v-card class="welcome-card" elevation="10">
+          <v-card class="welcome-card" elevation="10  rounded-lg v-cardglass-effect" >
             <!-- Welcome header -->
             <v-card-title class="text-center teal darken-2 white--text py-4">
-              <h1 class="text-h3 font-weight-bold w-100">WELCOME TO WomenDigi</h1>
+              <h1 class="text-h3 font-weight-bold w-100">WELCOME TO Her Rise</h1>
             </v-card-title>
             
             <!-- User profile section -->
@@ -34,47 +34,15 @@
               
               <!-- Welcome message -->
               <p class="text-body-1 text-center mx-auto" style="max-width: 80%;">
-                Thank you for joining Restaurant Island. We're excited to have you on board!
-                Explore our diverse menu, place orders, and enjoy a seamless dining experience.
+                Thank you for joining Her Rise. We're excited to have you on board!
               </p>
-              
-              <!-- Action buttons -->
-              <v-row class="mt-8">
-                <v-col cols="12" sm="6">
-                  <v-btn
-                    block
-                    color="teal darken-1"
-                    dark
-                    large
-                    router
-                    to="/menu"
-                  >
-                    <v-icon left>mdi-food</v-icon>
-                    Browse Menu
-                  </v-btn>
-                </v-col>
-                
-                <v-col cols="12" sm="6">
-                  <v-btn
-                    block
-                    outlined
-                    color="teal darken-1"
-                    large
-                    router
-                    to="/profile"
-                  >
-                    <v-icon left>mdi-account-edit</v-icon>
-                    Edit Profile
-                  </v-btn>
-                </v-col>
-              </v-row>
             </v-card-text>
             
             <!-- Guest view -->
             <v-card-text v-else class="text-center py-8">
               <v-avatar size="150" class="mb-4">
                 <v-img
-                  src="C:\Users\GRACE GITHINJI\Downloads\coco-o1e87ODPgJA-unsplash.jpg"
+                  src="/coco-o1e87ODPgJA-unsplash.jpg"
                   alt="Guest"
                   cover
                 ></v-img>
@@ -88,8 +56,7 @@
               
               <!-- Welcome message for guests -->
               <p class="text-body-1 text-center mx-auto" style="max-width: 80%;">
-                Welcome to Restaurant Island. Please log in or register to access our menu, 
-                place orders, and enjoy a personalized dining experience.
+                Welcome to Her Rise Foundation. Log in or register to experience our services.
               </p>
               
               <!-- Action buttons for guests -->
@@ -97,14 +64,14 @@
                 <v-col cols="12" sm="6">
                   <v-btn
                     block
-                    color="teal darken-1"
+                    color="#eb9b14"
                     dark
                     large
                     router
-                    to="/login"
+                    to="/students"
                   >
-                    <v-icon left>mdi-login</v-icon>
-                    Login
+                  <v-icon left>mdi-account-plus</v-icon>
+                    Students
                   </v-btn>
                 </v-col>
                 
@@ -112,13 +79,27 @@
                   <v-btn
                     block
                     outlined
-                    color="teal darken-1"
+                    color="#eb9b14"
                     large
                     router
-                    to="/register"
+                    to="/advisors"
                   >
                     <v-icon left>mdi-account-plus</v-icon>
-                    Register
+                    Advisor
+                  </v-btn>
+                </v-col>
+
+                <v-col cols="12" sm="6">
+                  <v-btn
+                    block
+                    outlined
+                    color="#eb9b14"
+                    large
+                    router
+                    to="/jobsearchers"
+                  >
+                    <v-icon left>mdi-account-plus</v-icon>
+                    Jobsearcher
                   </v-btn>
                 </v-col>
               </v-row>
@@ -145,11 +126,11 @@
   
   // Computed properties for user info
   const userName = computed(() => {
-    return currentUser.value?.name || 'GUEST USER'
+    return currentUser.value?.name || 'Guest'
   })
   
   const userEmail = computed(() => {
-    return currentUser.value?.email || 'guest@example.com'
+    return currentUser.value?.email || ''
   })
   
   const userRole = computed(() => {
@@ -167,7 +148,7 @@
   
   <style scoped>
   .welcome-background {
-    background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 50%, #80cbc4 100%);
+    background: linear-gradient( #eb9b14,  #da2561);
     min-height: 100vh;
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -177,4 +158,13 @@
     border-radius: 16px;
     overflow: hidden;
   }
+
+  .v-cardglass-effect {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 32px;
+    }
   </style>

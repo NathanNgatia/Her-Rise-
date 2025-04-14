@@ -134,7 +134,7 @@
                     <v-btn icon color="light-blue-darken-1" class="mr-4">
                       <v-icon>mdi-twitter</v-icon>
                     </v-btn>
-                    <v-btn icon color="deep-purple-darken-1" class="mr-4" href="https://www.instagram.com/her_rise/">
+                    <v-btn icon color="deep-orange-darken-1" class="mr-4" href="https://www.instagram.com/her_rise/">
                       <v-icon>mdi-instagram</v-icon>
                     </v-btn>
                     <v-btn icon color="red-darken-1">
@@ -154,20 +154,6 @@
                 </div>
               </div>
             </v-card> -->
-          </v-col>
-        </v-row>
-  
-        <!-- FAQ Section -->
-        <v-row class="mt-12">
-          <v-col cols="12">
-            <h2 class="text-h4 text-center mb-6">Frequently Asked Questions</h2>
-  
-            <v-expansion-panels variant="accordion" class="mb-6">
-              <v-expansion-panel v-for="(faq, index) in faqItems" :key="index">
-                <v-expansion-panel-title>{{ faq.question }}</v-expansion-panel-title>
-                <v-expansion-panel-text>{{ faq.answer }}</v-expansion-panel-text>
-              </v-expansion-panel>
-            </v-expansion-panels>
           </v-col>
         </v-row>
       </v-container>
@@ -210,39 +196,8 @@
     'General Inquiry',
     'Technical Support',
     'Partnership Opportunity',
-    'Restaurant Onboarding',
     'Feedback',
     'Report an Issue',
-    'Billing Question',
-  ]
-  
-  // FAQ items
-  const faqItems = [
-    {
-      question: 'How do I reset my password?',
-      answer:
-        'You can reset your password by clicking the "Forgot Password" link on the login page. You will receive an email with instructions to create a new password.',
-    },
-    {
-      question: 'How do I become a restaurant partner?',
-      answer:
-        'Restaurants can apply to join our platform by filling out the partnership form on our website. Our team will review your application and contact you within 2-3 business days.',
-    },
-    {
-      question: 'What areas do you currently serve?',
-      answer:
-        'We currently operate in 20 major cities across the country. You can check if we deliver to your area by entering your zip code on our homepage.',
-    },
-    {
-      question: 'How can I track my order?',
-      answer:
-        'Once your order is confirmed, you can track its status in real-time through our mobile app or website under "My Orders" section.',
-    },
-    {
-      question: 'What payment methods do you accept?',
-      answer:
-        'We accept all major credit cards, debit cards, digital wallets, and in some locations, cash on delivery.',
-    },
   ]
   
   // Form submission handler

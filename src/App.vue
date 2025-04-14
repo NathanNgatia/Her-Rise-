@@ -2,10 +2,11 @@
   <v-app>
     <NavBar />
     <v-content>
-      <Router-View />
+      <RouterView />
     </v-content>
     <Footer />
   </v-app>
+
 </template>
 
 <script setup>

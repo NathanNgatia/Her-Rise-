@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AboutView from '../views/AboutView.vue'
+import StudentsDashboard from '../views/StudentsDashboard.vue'
+import AdvisorsDashboard from '../views/AdvisorsDashboard.vue'
+import JobSearcherDashboard from '../views/JobSearcherDashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'Home',
       component: () => import('../views/HomeView.vue')
     },
@@ -35,14 +38,24 @@ const router = createRouter({
       component: () => import('../views/Contact Us.vue')
     },
     {
-      path: '/welcome',
+      path: '/profile',
       name: 'Welcome',
       component: () => import('../views/WelcomePage.vue')
     },
     {
-      path: '/profile',
-      name: 'My Profile',
-      component: () => import('../views/My Profile.vue')  
+      path: '/studentsDashboard',
+      name: 'Students',
+      component:StudentsDashboard
+    },
+    {
+      path: '/advisorsDashboard',
+      name: 'Advisors',
+      component: AdvisorsDashboard
+    },
+    {
+      path: '/jobsearchersDashboard',
+      name: 'Jobsearcher',
+      component: JobSearcherDashboard
     },
   ]
 })

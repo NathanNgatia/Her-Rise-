@@ -3,7 +3,7 @@
       <v-container fluid fill-height class="login-background">
         <v-row justify="center">
           <v-col cols="12" sm="8" md="6" lg="4">
-            <v-card elevation="10" class="pa-6 rounded-lg">
+            <v-card elevation="10" class="pa-6 rounded-lg v-cardglass-effect">
               <v-form @submit.prevent="handleLogin" ref="form">
                 <div class="text-center mb-6">
                   <h1 class="text-h4 font-weight-bold teal--text text--darken-2">Welcome Back</h1>
@@ -126,5 +126,15 @@
     .login-background {
       background: linear-gradient( #eb9b14, #da2561);
       min-height: 100vh;
+    }
+    
+    
+    .v-cardglass-effect {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 32px;
     }
   </style>

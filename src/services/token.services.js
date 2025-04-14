@@ -20,6 +20,10 @@ class TokenService {
       return !!this.getToken();
     }
 
+    unAuthenticated(){
+      return !this.getToken();
+    }
+
     async userInfo() {
         try {
           const response = await api.get('me');

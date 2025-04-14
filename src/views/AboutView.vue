@@ -7,6 +7,7 @@
     </v-row>
 
     <!-- Hero Section -->
+    <v-card info class="px-6 py-8 rounded-lg elevation-3">
     <v-row class="hero-section mb-12">
       <v-col cols="12" md="6" class="d-flex align-center">
         <div>
@@ -24,16 +25,16 @@ Our programs are designed to address the unique challenges faced by women and ch
           </p>
         </div>
       </v-col>
-      <v-col cols="12" md="6">
+      <v-col cols="5" md="6" aria-level="4">
         <v-img
-          src="/7161cc0f-fec5-4acf-90cd-07ed3134ebcd.jpeg"
-          alt="HerRise atmosphere"
+          src="/download-aiimagegenerator.png"
           class="rounded-lg elevation-3"
           height="400"
           cover
         ></v-img>
       </v-col>
     </v-row>
+  </v-card>
 
     <!-- Our Values -->
     <v-row class="my-10">
@@ -72,7 +73,7 @@ Our programs are designed to address the unique challenges faced by women and ch
       <v-row>
     <section class="featured-section">
       <div class="container">
-        <h2 class="section-title">Our Services</h2>
+        <h2 class="text-h4 text-center mb-8 font-weight-medium">Our Services</h2>
         <div class="featured-items">
           <div class="featured-item">
             <div class="featured-image">
@@ -108,13 +109,15 @@ Our programs are designed to address the unique challenges faced by women and ch
       <div class="container">
         <div class="about-content">
           <div class="about-text">
-            <h2 class="section-title">Our Story</h2>
-            <p>Founded in 2010, Savoria brings together the finest ingredients and culinary expertise to create an unforgettable dining experience. Our chef, with over 20 years of experience, crafts each dish with passion and precision.</p>
-            <p>We believe in sustainable sourcing and supporting local farmers, ensuring that every ingredient that enters our kitchen meets our high standards of quality and freshness.</p>
-            <button class="secondary-button">Learn More</button>
+            <h2 class="text-h4 text-center mb-8 font-weight-medium">Our Story</h2>
+            <p>Founded in 2020, our foundation was established for the betterment of women's lives and also the lives of children to help them create a better future, a future where they dont have to go to extreme ends to earn a living.</p>
+            <p>We as Her Rise Foundation, we are working to create a sustainable future for:<br>
+               Unemployed Women,<br>
+               Highschool Leavers,<br>
+               Children living in unstable families and poor backgrounds.</p>
           </div>
           <div class="about-image">
-            <img src="/ec2830b6-782d-4692-9c74-8662d10bc24d.jpeg" alt="Restaurant Interior">
+            <img src="/ec2830b6-782d-4692-9c74-8662d10bc24d.jpeg">
           </div>
         </div>
       </div>
@@ -126,18 +129,15 @@ Our programs are designed to address the unique challenges faced by women and ch
         <h2 class="section-title">What Our Guests Say</h2>
         <div class="testimonials">
           <div class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p class="quote">"The best dining experience I've had in years. The food was exquisite and the service impeccable."</p>
+            <p class="quote">"Through this foundation i was able to find a job where i am now able to pay for my rent and day to day purchases."</p>
             <p class="author">- Maria S.</p>
           </div>
           <div class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p class="quote">"A hidden gem with atmosphere that matches the incredible flavors. Will definitely be returning!"</p>
+            <p class="quote">"It is a Foundation in which I can safely say that it will ensure the betterment of our childrens' future"</p>
             <p class="author">- James T.</p>
           </div>
           <div class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p class="quote">"From appetizers to dessert, every dish was prepared with attention to detail. Truly memorable."</p>
+            <p class="quote">"From well diversed advisors to well planned program calendar. This website is going to be a help to very many women and children and will help educational advisors find people to mentor."</p>
             <p class="author">- Ana L.</p>
           </div>
         </div>
@@ -149,40 +149,21 @@ Our programs are designed to address the unique challenges faced by women and ch
       <div class="container">
         <div class="info-container">
           <div class="info-card">
-            <h3>Hours</h3>
+            <h3>Advisor Availability Hours</h3>
             <p>Monday - Thursday: 11am - 10pm</p>
             <p>Friday - Saturday: 11am - 11pm</p>
             <p>Sunday: 11am - 9pm</p>
           </div>
           <div class="info-card">
-            <h3>Location</h3>
-            <p>123 Culinary Avenue</p>
-            <p>Foodie District</p>
-            <p>Gastro City, GC 12345</p>
-          </div>
-          <div class="info-card">
             <h3>Contact</h3>
-            <p>Phone: (555) 123-4567</p>
-            <p>Email: info@savoria.com</p>
-            <p>Reservations recommended</p>
+            <p>Phone: (254) 722-486-541</p>
+            <p>Email: info@HerRise.com</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
-      <div class="container">
-        <div class="newsletter-content">
-          <h2>Stay Updated</h2>
-          <p>Subscribe to our newsletter for special offers and events</p>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Your email address" required>
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
-      </div>
-    </section>
+  
   </v-row>
      </v-card>
 
@@ -193,30 +174,30 @@ Our programs are designed to address the unique challenges faced by women and ch
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <v-card class="text-center elevation-2">
-          <v-img src="https://picsum.photos/id/1005/300/300" height="250" cover></v-img>
-          <v-card-title class="justify-center">Sarah Johnson</v-card-title>
+          <v-img src="/b5fbd270-e797-4429-8f0b-477f210165ab.jpeg" height="250" cover></v-img>
+          <v-card-title class="justify-center">Nathaniel Ives</v-card-title>
           <v-card-subtitle>Founder & CEO</v-card-subtitle>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <v-card class="text-center elevation-2">
-          <v-img src="https://picsum.photos/id/1012/300/300" height="250" cover></v-img>
-          <v-card-title class="justify-center">Michael Chen</v-card-title>
+          <v-img src="/545c6c19-a6f9-43c1-9812-91ac013929c4.jpeg" height="250" cover></v-img>
+          <v-card-title class="justify-center">Mitchell Kinyua</v-card-title>
           <v-card-subtitle>Head of Operations</v-card-subtitle>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <v-card class="text-center elevation-2">
-          <v-img src="https://picsum.photos/id/1027/300/300" height="250" cover></v-img>
-          <v-card-title class="justify-center">Amara Wilson</v-card-title>
-          <v-card-subtitle>Restaurant Relations</v-card-subtitle>
+          <v-img src="/d45b1d18-a54b-4519-8832-0350f5d30a9f.jpeg" height="250" cover></v-img>
+          <v-card-title class="justify-center">Don Njeri</v-card-title>
+          <v-card-subtitle>Head Advisor</v-card-subtitle>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <v-card class="text-center elevation-2">
-          <v-img src="https://picsum.photos/id/1074/300/300" height="250" cover></v-img>
-          <v-card-title class="justify-center">David Rodriguez</v-card-title>
-          <v-card-subtitle>Technology Director</v-card-subtitle>
+          <v-img src="/c599cef2-9bca-42c4-a288-db8039f1b9a6.jpeg" height="250" cover></v-img>
+          <v-card-title class="justify-center">Isla Kaiser</v-card-title>
+          <v-card-subtitle>Interface Engineer</v-card-subtitle>
         </v-card>
       </v-col>
     </v-row>
@@ -236,13 +217,13 @@ Our programs are designed to address the unique challenges faced by women and ch
         <div class="stat-circle  d-inline-flex align-center justify-center mb-4">
           <span class="text-h4 font-weight-bold">20</span>
         </div>
-        <h3 class="mb-2">Cities Served</h3>
+        <h3 class="mb-2">Countries Served</h3>
       </v-col>
       <v-col cols="12" sm="6" md="3" class="text-center">
         <div class="stat-circle d-inline-flex align-center justify-center mb-4">
           <span class="text-h4 font-weight-bold">2M+</span>
         </div>
-        <h3 class="mb-2">Happy Customers</h3>
+        <h3 class="mb-2">Happy Learners</h3>
       </v-col>
       <v-col cols="12" sm="6" md="3" class="text-center">
         <div class="stat-circle d-inline-flex align-center justify-center mb-4">
@@ -267,6 +248,20 @@ Our programs are designed to address the unique challenges faced by women and ch
         </v-btn>
       </v-col>
     </v-row>
+
+      <!-- Newsletter Section -->
+      <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-content">
+          <h2>Stay Updated</h2>
+          <p>Turn on notifications for events and offers.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
   </v-container>
   <RouterView/>
   <router-link/>
@@ -290,7 +285,7 @@ import { RouterView } from 'vue-router';
 /* Featured Section */
 .featured-section {
   padding: 5rem 0;
-  background-color: #f5f5f5;
+  background-color:  #f5f5f5;
 }
 
 .featured-items {
@@ -337,7 +332,7 @@ import { RouterView } from 'vue-router';
 /* About Section */
 .about-section {
   padding: 5rem 0;
-  background-color: #f5f5f5;
+  background-color:  #f5f5f5;
 }
 
 .about-content {
@@ -362,22 +357,6 @@ import { RouterView } from 'vue-router';
   width: 100%;
   height: auto;
   border-radius: 8px;
-}
-
-.secondary-button {
-  background-color: transparent;
-  color: #eb9b14;
-  border: 2px solid #eb9b14;
-  padding: 10px 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s;
-}
-
-.secondary-button:hover {
-  background-color: #e74c3c;
-  color: white;
 }
 
 /* Testimonials Section */
@@ -454,7 +433,7 @@ import { RouterView } from 'vue-router';
 
 /* Newsletter Section */
 .newsletter-section {
-  padding: 5rem 0;
+  padding: 5rem 50rex;
   background-color: #333;
   color: white;
 }

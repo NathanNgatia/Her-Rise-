@@ -52,6 +52,7 @@ export function useAuth() {
       // Check if we have user and token in the response
       if (response.data.token && response.data.user) {
         const { token, user: userData } = response.data
+        const userAbilities = response.data.abilities || {}
         
         // Save token
         TokenService.setToken(token)
@@ -159,6 +160,7 @@ export function useAuth() {
 // Create a global instance for non-composition API usage
 const globalAuthService = {
   isAuthenticated: () => !!user.value,
+  unAuthenticated: () => !user.value,
   isAdmin: () => user.value && user.value.role?.slug === 'admin',
   getCurrentUser: () => user.value,
   getAbilities: () => abilities.value,

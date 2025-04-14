@@ -34,38 +34,67 @@
   <v-app-bar color="#eb9b14" light app>
     <v-app-bar-nav-icon 
       @click.stop="drawer = !drawer"
+      v-if="isAuthenticated || !hideForUnauthenticated"
     ></v-app-bar-nav-icon>
 
-    <v-toolbar-title class="text-mixed">
-      <span class="font-weight-light">HerRise</span>
+    <v-toolbar-title class="text-mixed" text-font="sans-serif">
+      <span color="black" dark>HerRise</span>
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
         <div>
-            <v-btn to="/home" color="black" dark >Home </v-btn>
+          <v-icon left>mdi-home</v-icon>
+            <v-btn to="/" color="black" dark >Home </v-btn>
             
         </div>
         <div>
+            <v-icon left>mdi-information</v-icon>
             <v-btn to="/about-us" color="black" dark >About </v-btn>
             
         </div>
         <div>
+            <v-icon left>mdi-phone</v-icon>
             <v-btn to="/contact-us" color="black" dark > Contact Us </v-btn>
             
         </div>
         <div>
+          <a>
+          <v-icon left>mdi-account</v-icon>
             <v-btn to="/profile" color="black" dark > Profile </v-btn>
-
+          </a>
         </div>
+     
+
+        <v-spacer></v-spacer>
+    <v-menu offset-y>
+      <template v-slot:activator="{ props }">
+        <v-btn text v-bind="props">
+          <v-icon left>mdi-chevron-down</v-icon>
+          <span>Accounts</span>
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="path in filteredPaths"
+          :key="path.text"
+          router
+          :to="path.route"
+          active-class="border"
+        >
+          <v-list-item-title>{{ path.text }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
     <!-- Add logout button if authenticated -->
     <v-btn 
-      v-if="isAuthenticated" 
+     
       text 
       @click="handleLogout"
       class="ml-2"
+      v-if="isAuthenticated || !hideForUnauthenticated"
     >
       <v-icon left>mdi-logout</v-icon>
-      <span>Logout</span>
     </v-btn>
   </v-app-bar>
 </template>
@@ -78,15 +107,15 @@ import { useRouter } from 'vue-router'
 const props = defineProps({
   hideForUnauthenticated: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 })
 
-const drawer = ref(true)
+const drawer = ref(false)
 const router = useRouter()
 
 // Use the authentication service
-const { isAuthenticated, currentUser, isAdmin, logout, loadUserInfo } = useAuth()
+const { isAuthenticated, unAuthenticated, currentUser, isAdmin, logout, loadUserInfo } = useAuth()
 
 // Load user info on component mount
 onMounted(async () => {
@@ -113,21 +142,20 @@ function handleLogout() {
 // Define all possible navigation paths with required roles
 const allPaths = [
   // Public paths
-  { icon: 'mdi-home', text: 'Home', route: '/', public: true },
-  { icon: 'mdi-magnify', text: 'Search', route: '/search', public: true },
-  { icon: 'mdi-heart', text: 'About Us', route: '/about-us', public: true },
-  { icon: 'mdi-mail', text: 'Contact Us', route: '/contact-us', public: true },
-  { icon: 'mdi-account', text: 'My Profile', route: '/profile', public: true },
+  //paths to the signup pages n the sign up drawer
+  { icon: 'mdi-account', text: 'Students', route: '/students', public: true },
+  { icon: 'mdi-account', text: 'Advisors', route: '/advisors', public: true },
 
   // Authentication paths (show login when not authenticated, profile when authenticated)
   { icon: 'mdi-lock', text: 'Login', route: '/login', showWhenLoggedOut: true },
-
-
+  { icon: 'mdi-account-plus', text: 'Sign Up', route: '/signup', showWhenLoggedOut: true },
+  { icon: 'mdi-account', text: 'Profile', route: '/profile' },
+  
   // Admin/Backend paths
   {
     icon: 'mdi-store',
     text: 'Website Management',
-    route: '/admin/womendigi',
+    route: '/admin/herrise',
     requiresAdmin: true,
   },
   { icon: 'mdi-map-marker', text: 'Locations', route: '/admin/locations', requiresAdmin: true },
@@ -135,18 +163,18 @@ const allPaths = [
     icon: 'mdi-account-group',
     text: 'User Management',
     route: '/admin/users',
-    requiresAdmin: true,
+    requiresAdmin: false, // Change to true if needed
   },
 ]
 
 // Filter paths based on authentication status and user role
 const filteredPaths = computed(() => {
   return allPaths.filter((path) => {
-    // Public paths are always visible
-    if (path.public) return true
+    // Public paths are visible
+    if (path.public) return false
 
     // Paths that should only show when logged out
-    if (path.showWhenLoggedOut && !isAuthenticated.value) return true
+    if (path.showWhenLoggedOut && !unAuthenticated) return true
 
     // Paths that require authentication
     if (path.requiresAuth && isAuthenticated.value) {
@@ -154,6 +182,17 @@ const filteredPaths = computed(() => {
       if (path.requiresAdmin) {
         return isAdmin.value
       }
+      return true
+    }
+
+    // Paths that are public or don't require authentication
+    if (!path.requiresAuth && unAuthenticated) {
+      // Non-admin paths
+      return true
+    }
+
+    // If the user is not authenticated, show the login/signup paths
+    if (path.showWhenLoggedOut && unAuthenticated) {
       return true
     }
 
@@ -176,5 +215,19 @@ const filteredPaths = computed(() => {
 }
 .border {
   border-right: 4px solid red;
+}
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f8b400;
+  color: white;
+}
+.icon {
+  width: 24px;
+  height: 24px;
 }
 </style>
