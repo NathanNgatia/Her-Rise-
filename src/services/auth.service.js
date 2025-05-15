@@ -18,7 +18,7 @@ export function useAuth() {
 
   // Check if user is authenticated
   const isAuthenticated = computed(() => !!user.value)
-  
+
   // Check if user is an admin
   const isAdmin = computed(() => {
     return user.value && user.value.role?.slug === 'admin'
@@ -39,29 +39,29 @@ export function useAuth() {
   async function login(credentials) {
     loading.value = true
     error.value = null
-    await loadUserInfo();
-    
+    await loadUserInfo()
+
     try {
       // Ensure email and password are not empty
       if (!credentials.email || !credentials.password) {
         throw new Error('Email and password are required')
       }
-      
+
       const response = await api.post('login', credentials)
 
-      console.log("RESPONSE DATA : ", response.data);
+      console.log('RESPONSE DATA : ', response.data)
       // Check if we have user and token in the response
       if (response.data.token && response.data.user) {
         const { token, user: userData } = response.data
         const userAbilities = response.data.abilities || {}
-        
+
         // Save token
         TokenService.setToken(token)
-        
+
         // Set user data and abilities
         user.value = userData
         abilities.value = userAbilities || {}
-        
+
         return response
       } else {
         throw new Error('Invalid response format from server')
@@ -77,21 +77,20 @@ export function useAuth() {
 
   async function fetchUserInfo() {
     try {
-      const response = await api.get('me');
-      localStorage.setItem("user", response.data.name);
-      return response.data;
+      const response = await api.get('me')
+      localStorage.setItem('user', response.data.name)
+      return response.data
     } catch (error) {
-      console.error('No Authenticated User Was Found', error);
-      throw error;
+      console.error('No Authenticated User Was Found', error)
+      throw error
     }
   }
-  
 
   // Register method
   async function register(userData) {
     loading.value = true
     error.value = null
-    
+
     try {
       const response = await api.post('register', userData)
       return response
@@ -108,7 +107,9 @@ export function useAuth() {
     user.value = null
     abilities.value = {}
     TokenService.removeToken()
-    router.push('/login');
+    localStorage.removeItem('auth-token')
+    localStorage.removeItem('user')
+    token.value = null
   }
 
   // Load user info from server
@@ -119,7 +120,7 @@ export function useAuth() {
     try {
       if (TokenService.isAuthenticated()) {
         const response = await api.get('/user')
-        
+
         // Check if we have valid user data
         if (response.data.user) {
           user.value = response.data.user
@@ -141,7 +142,7 @@ export function useAuth() {
   async function updateProfile(profileData) {
     loading.value = true
     error.value = null
-    
+
     try {
       const response = await api.put('update-profile', profileData)
       user.value = response.data.user || response.data
@@ -154,8 +155,6 @@ export function useAuth() {
     }
   }
 
-
-  
   return {
     user,
     loading,
@@ -174,7 +173,7 @@ export function useAuth() {
     viewProfile: async () => {
       loading.value = true
       error.value = null
-      
+
       try {
         const response = await api.get('view-profile')
         return response
@@ -188,7 +187,7 @@ export function useAuth() {
     viewDashboards: async () => {
       loading.value = true
       error.value = null
-      
+
       try {
         const response = await api.get('view-dashboards')
         return response
@@ -198,7 +197,7 @@ export function useAuth() {
       } finally {
         loading.value = false
       }
-    }
+    },
   }
 }
 
@@ -231,7 +230,7 @@ const globalAuthService = {
   updateProfile: async (profileData) => {
     const { updateProfile } = useAuth()
     return updateProfile(profileData)
-  }
+  },
 }
 
 export default globalAuthService

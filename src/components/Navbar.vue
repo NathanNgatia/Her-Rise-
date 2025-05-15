@@ -137,9 +137,7 @@ const userAvatar = computed(() => {
 // Handle logout
 function handleLogout() {
   logout();
-  localStorage.removeItem('auth-token');
-  localStorage.removeItem('user');
-  $this.router.push('/login');
+  router.push('/login');
   alert ('You have been logged out successfully!')
 }
 
