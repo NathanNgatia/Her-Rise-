@@ -3,17 +3,16 @@ import api from '../services/api';
 
 class TokenService {
     setToken(token){
-        localStorage.setItem("authToken", token);
+        localStorage.setItem("auth-token", token);
     }
 
     getToken() {
-        const token = localStorage.getItem("authToken");
+        const token = localStorage.getItem("auth-token");
         console.log("This is my Token --->>", token);
         return token;
     }
     removeToken(){
-      localStorage.removeItem("authToken");
-      router.push('/login');
+      localStorage.removeItem("auth-token");
     }
 
     isAuthenticated(){
@@ -23,15 +22,6 @@ class TokenService {
     unAuthenticated(){
       return !this.getToken();
     }
-
-    async userInfo() {
-        try {
-          const response = await api.get('me');
-          localStorage.setItem("user", response.data.name);
-        } catch (error) {
-          console.error('No Authenticated User Was Found', error);
-        }
-      }
 }
 
 const myTokenInstance = new TokenService();

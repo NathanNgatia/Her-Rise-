@@ -72,6 +72,8 @@
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   import { useAuth } from '../services/auth.service'
+  import axios from 'axios';
+
   
   const router = useRouter()
   const { login, loading, error } = useAuth()
@@ -82,6 +84,7 @@
   const showPassword = ref(false)
   const rememberMe = ref(false)
   const form = ref(null)
+
   
   // Validation rules
   const emailRules = [
@@ -93,33 +96,60 @@
     v => !!v || 'Password is required'
   ]
   
+
+  
   // Login handler with form validation
   async function handleLogin() {
     // Validate form before submission
-    const isValid = form.value?.validate()
-    
-    if (!isValid) {
-      return
-    }
-    
+    const isValid = await form.value?.validate();
+    if (!isValid) return;
+
     if (!email.value || !password.value) {
       console.error('Email and password are required')
-      return
+      return;
     }
   
-    try {
-      await login({
-        email: email.value,
-        password: password.value
-      })
+    try{
+    const response = await axios.post('http://localhost:8000/api/login', {
+      email: email.value,
+      password: password.value,
+    }, {withCredentials: true,
+    });
+
+    const user = response.data.user;
+    const token = response.data.token;
+
+      //Store token and user info
+      localStorage.setItem('auth-token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Assuming login returns user data
       alert('Login successful')
-      router.push({ name: 'Home' }) //Redirect after succesfull login
-     
-    } catch (err) {
-      // Error is already handled by the auth service
-      console.error('Login failed', err)
+      
+      //Redirect by role
+      switch (user.role?.name) {
+      case 'Students':
+        router.push('/studentdashboard');
+        break;
+      case 'mentor':
+        router.push('/dashboard/mentor');
+        break;
+      case 'jobsearcher':
+        router.push('/dashboard/jobsearcher');
+        break;
+      case 'admin':
+        router.push('/dashboard/admin');
+        break;
+      default:
+        router.push('/dashboard');
     }
   }
+
+      catch (err) {
+        console.error('Login error:', err)
+        alert('Login failed. Please check your credentials and try again.');
+      };
+    }
   </script>
   
   <style scoped>

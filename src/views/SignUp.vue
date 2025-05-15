@@ -70,6 +70,19 @@
                   outlined
                   dense
                 ></v-text-field>
+
+                <v-select
+                  v-model="selectedRoleId"
+                  :items="roles"
+                  item-title="text"
+                  item-value="id"
+                  label="Select Role"
+                  prepend-inner-icon="mdi-account-circle"
+                  :rules="[v => !!v || 'Role is required']"
+                  required
+                  outlined
+                  dense
+                ></v-select>
   
   
                 <v-btn
@@ -102,78 +115,100 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
-  import axios from 'axios'
-  
-  const router = useRouter()
-  
-  const form = ref(null)
-  const name = ref('')
-  const email = ref('')
-  const password = ref('')
-  const password_confirmation = ref('')
-  const userPhoto = ref(null)
-  const showPassword = ref(false)
-  const showConfirmPassword = ref(false)
-  const loading = ref(false)
-  const errorMessage = ref('')
-  
-  // Define the API base URL - adjust this as needed
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
-  
-  const register = async () => {
-    const isValid = form.value.validate()
-  
-    if (!isValid) return
-  
-    loading.value = true
-    errorMessage.value = ''
-  
-    const formData = new FormData()
-    formData.append('name', name.value)
-    formData.append('email', email.value)
-    formData.append('password', password.value)
-    formData.append('password_confirmation', password_confirmation.value)
-  
-  
-    try {
-      // Updated endpoint path - adjust based on your actual Laravel routes
-      const response = await axios.post(`${API_URL}/register`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-  
-      // Store token in localStorage
-      localStorage.setItem('auth-token', response.data.token)
-  
-      // Store user info in localStorage
-      localStorage.setItem('user', JSON.stringify(response.data.user))
-  
-      // Navigate to welcome page
-      router.push('/welcome')
-    } catch (error) {
-      console.error('Registration error:', error)
-  
-      if (error.response) {
-        if (error.response.data.errors) {
-          const errors = error.response.data.errors
-          const firstError = Object.values(errors)[0]
-          errorMessage.value = firstError[0]
-        } else {
-          errorMessage.value = error.response.data.message || 'Registration failed. Please try again.'
-        }
-      } else if (error.request) {
-        errorMessage.value = 'No response from server. Please check your connection or server status.'
-      } else {
-        errorMessage.value = 'Network error. Please check your connection.'
-      }
-    } finally {
-      loading.value = false
-    }
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+import api from '../services/api.js'
+
+const router = useRouter()
+
+const form = ref(null)
+const name = ref('')
+const email = ref('')
+const password = ref('')
+const password_confirmation = ref('')
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
+const selectedRoleId = ref(null)
+const loading = ref(false)
+const errorMessage = ref('')
+const roles = ref([])
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+
+const getRoles = async () => {
+  try {
+    const response = await api.get(`Role`)
+    roles.value = response.data?.map(role => ({
+      text: role.name,
+      id: role.id
+    }))
+    console.log('Roles:', response.data)
+  } catch (error) {
+    console.error('Error fetching roles:', error)
   }
-  </script>
+}
+
+onMounted(() => {
+  getRoles()
+})
+
+const register = async () => {
+  const isValid = form.value.validate()
+  if (!isValid) return
+
+  loading.value = true
+  errorMessage.value = ''
+
+  const formData = new FormData()
+  formData.append('name', name.value)
+  formData.append('email', email.value)
+  formData.append('password', password.value)
+  formData.append('password_confirmation', password_confirmation.value)
+  formData.append('role_id', selectedRoleId.value)
+
+  try {
+    const response = await axios.post(`${API_URL}/register`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
+    localStorage.setItem('auth-token', response.data.token)
+    localStorage.setItem('user', JSON.stringify(response.data.user))
+
+    const roleName = response.data.user.role?.name?.toLowerCase()
+
+    switch (roleName) {
+      case 'Students':
+        router.push('/studentdashboard')
+        break
+      case 'mentor':
+        router.push('/dashboard/advisor')
+        break
+      case 'job seeker':
+        router.push('/dashboard/jobsearcher')
+        break
+      case 'admin':
+        router.push('/dashboard/admin')
+        break
+      default:
+        router.push('/dashboard')
+    }
+  } catch (error) {
+    console.error('Registration error:', error)
+    if (error.response?.data?.errors) {
+      const firstError = Object.values(error.response.data.errors)[0]
+      errorMessage.value = firstError[0]
+    } else {
+      errorMessage.value = error.response?.data?.message || 'Registration failed. Please try again.'
+    }
+  } finally {
+    loading.value = false
+  }
+}
+</script>
+
   
   <style scoped>
   .signup-background {

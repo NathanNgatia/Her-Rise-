@@ -13,7 +13,7 @@ const error = ref(null)
 export function useAuth() {
   // Initialize auth on first use
   if (!user.value && TokenService.isAuthenticated()) {
-    loadUserInfo()
+    loadUserInfo(), fetchUserInfo()
   }
 
   // Check if user is authenticated
@@ -39,6 +39,7 @@ export function useAuth() {
   async function login(credentials) {
     loading.value = true
     error.value = null
+    await loadUserInfo();
     
     try {
       // Ensure email and password are not empty
@@ -74,6 +75,18 @@ export function useAuth() {
     }
   }
 
+  async function fetchUserInfo() {
+    try {
+      const response = await api.get('me');
+      localStorage.setItem("user", response.data.name);
+      return response.data;
+    } catch (error) {
+      console.error('No Authenticated User Was Found', error);
+      throw error;
+    }
+  }
+  
+
   // Register method
   async function register(userData) {
     loading.value = true
@@ -95,16 +108,17 @@ export function useAuth() {
     user.value = null
     abilities.value = {}
     TokenService.removeToken()
+    router.push('/login');
   }
 
   // Load user info from server
   async function loadUserInfo() {
     loading.value = true
     error.value = null
-    
+
     try {
       if (TokenService.isAuthenticated()) {
-        const response = await api.get('me')
+        const response = await api.get('/user')
         
         // Check if we have valid user data
         if (response.data.user) {
@@ -140,6 +154,8 @@ export function useAuth() {
     }
   }
 
+
+  
   return {
     user,
     loading,
@@ -153,7 +169,36 @@ export function useAuth() {
     register,
     logout,
     loadUserInfo,
-    updateProfile
+    updateProfile,
+    fetchUserInfo,
+    viewProfile: async () => {
+      loading.value = true
+      error.value = null
+      
+      try {
+        const response = await api.get('view-profile')
+        return response
+      } catch (err) {
+        error.value = err.response?.data?.message || 'Failed to load profile'
+        throw err
+      } finally {
+        loading.value = false
+      }
+    },
+    viewDashboards: async () => {
+      loading.value = true
+      error.value = null
+      
+      try {
+        const response = await api.get('view-dashboards')
+        return response
+      } catch (err) {
+        error.value = err.response?.data?.message || 'Failed to load dashboards'
+        throw err
+      } finally {
+        loading.value = false
+      }
+    }
   }
 }
 

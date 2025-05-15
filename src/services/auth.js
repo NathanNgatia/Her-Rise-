@@ -3,13 +3,13 @@ import { defineStore } from 'pinia';
 import api from '../services/api';
 import TokenService from '../services/token.service';
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore('auth-token', {
   state: () => ({
     isAuthenticated: true,
-    user: admin,
+    user: this.user,
     loginItems: {
-        username: 'nathan@gmail.com',
-        password: '12345678'
+        username: 'nullable',
+        password: 'nullable'
     }
   }),
 
@@ -18,8 +18,8 @@ export const useAuthStore = defineStore('auth', {
 
         try {
             const response = await api.post('login', {
-              email: loginItems.username="nathan@gmail.com",
-              password: loginItems.password="123456",
+              email: loginItems.username="",
+              password: loginItems.password="",
             });
             console.log("Trying to authenticate ", this.username);
             const token = response.data.token;
@@ -52,12 +52,12 @@ export const useAuthStore = defineStore('auth', {
   }),
 
   actions: {
-    async login(loginItems) {
+    async register(registerItems) {
 
         try {
             const response = await api.post('login', {
-              email: loginItems.username="nullable",
-              password: loginItems.password="nullable",
+              email: registerItems.username="nullable",
+              password: registerItems.password="nullable",
             });
             console.log("Trying to authenticate ", this.username);
             const token = response.data.token;
@@ -65,10 +65,10 @@ export const useAuthStore = defineStore('auth', {
             this.user = TokenService.userInfo();
             this.unAuthenticated = true;
      
-            console.log('Login successful');
+            console.log('Sign Up successful');
 
       } catch (error) {
-        console.error('Login failed', error);
+        console.error('Sign Up failed', error);
       }
     },
 

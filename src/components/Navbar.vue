@@ -60,13 +60,14 @@
         <div>
           <a>
           <v-icon left>mdi-account</v-icon>
-            <v-btn to="/profile" color="black" dark > Profile </v-btn>
+            <v-btn to="/profile" color="black" dark 
+            v-if="isAuthenticated || !hideForUnauthenticated"
+            >
+             Profile </v-btn>
           </a>
         </div>
-     
-
         <v-spacer></v-spacer>
-    <v-menu offset-y>
+    <v-menu offset-y>  
       <template v-slot:activator="{ props }">
         <v-btn text v-bind="props">
           <v-icon left>mdi-chevron-down</v-icon>
@@ -88,13 +89,13 @@
 
     <!-- Add logout button if authenticated -->
     <v-btn 
-     
+     v-if="isAuthenticated || !hideForUnauthenticated"
       text 
       @click="handleLogout"
       class="ml-2"
-      v-if="isAuthenticated || !hideForUnauthenticated"
     >
       <v-icon left>mdi-logout</v-icon>
+      Logout
     </v-btn>
   </v-app-bar>
 </template>
@@ -115,7 +116,7 @@ const drawer = ref(false)
 const router = useRouter()
 
 // Use the authentication service
-const { isAuthenticated, unAuthenticated, currentUser, isAdmin, logout, loadUserInfo } = useAuth()
+const { isAuthenticated, currentUser, isAdmin, logout, loadUserInfo } = useAuth()
 
 // Load user info on component mount
 onMounted(async () => {
@@ -124,33 +125,36 @@ onMounted(async () => {
 
 // Computed properties for user info
 const userName = computed(() => {
-  return currentUser.value ? currentUser.value.name || 'User' : 'Guest'
+  return currentUser.value ? currentUser.value.name || $user : 'Guest'
 })
 
 const userAvatar = computed(() => {
   return currentUser.value && currentUser.value.user_photo
     ? currentUser.value.user_photo
-    : '/dea6a4e6-0b58-4479-b401-79d4e4b13ec8.jpeg'
+    : '/UserProfilePhoto.jpeg'
 })
 
 // Handle logout
 function handleLogout() {
-  logout()
-  router.push('/login')
+  logout();
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  router.push('/login');
+  alert ('You have been logged out successfully!')
 }
 
 // Define all possible navigation paths with required roles
 const allPaths = [
   // Public paths
-  //paths to the signup pages n the sign up drawer
-  { icon: 'mdi-account', text: 'Students', route: '/students', public: true },
-  { icon: 'mdi-account', text: 'Advisors', route: '/advisors', public: true },
+  { icon: 'mdi-account', text: 'Dashboard', route:'/dashboard', public: true, showWhenLoggedIn: true, requiresAuth: true },
+  
 
   // Authentication paths (show login when not authenticated, profile when authenticated)
-  { icon: 'mdi-lock', text: 'Login', route: '/login', showWhenLoggedOut: true },
-  { icon: 'mdi-account-plus', text: 'Sign Up', route: '/signup', showWhenLoggedOut: true },
-  { icon: 'mdi-account', text: 'Profile', route: '/profile' },
+  { icon: 'mdi-account', text: 'Login', route: '/login', public: true, showWhenLoggedOut: true },
+  { icon: 'mdi-account', route: '/profile', text: 'Profile', public: false },
+  { icon: 'mdi-account', route: '/signup', text: 'Sign Up', public: true },
   
+
   // Admin/Backend paths
   {
     icon: 'mdi-store',
@@ -171,10 +175,8 @@ const allPaths = [
 const filteredPaths = computed(() => {
   return allPaths.filter((path) => {
     // Public paths are visible
-    if (path.public) return false
+    if (path.public) return true 
 
-    // Paths that should only show when logged out
-    if (path.showWhenLoggedOut && !unAuthenticated) return true
 
     // Paths that require authentication
     if (path.requiresAuth && isAuthenticated.value) {
@@ -185,16 +187,6 @@ const filteredPaths = computed(() => {
       return true
     }
 
-    // Paths that are public or don't require authentication
-    if (!path.requiresAuth && unAuthenticated) {
-      // Non-admin paths
-      return true
-    }
-
-    // If the user is not authenticated, show the login/signup paths
-    if (path.showWhenLoggedOut && unAuthenticated) {
-      return true
-    }
 
     return false
   })

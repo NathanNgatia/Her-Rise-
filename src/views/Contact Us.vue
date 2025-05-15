@@ -1,7 +1,7 @@
 <template>
   <router-link/>
-    <v-main>
-      <v-container class="contact-us py-8">
+    <v-main class="contact-us">
+      <v-container class="contact-us,py-8 rounded-lg v-cardglass-effect">
         <v-row>
           <v-col cols="12">
             <h1 class="text-center text-h3 mb-6 teal--text text--darken-2">Contact Us</h1>
@@ -15,7 +15,7 @@
         <v-row>
           <!-- Contact Form -->
           <v-col cols="12" md="7">
-            <v-card class="pa-4 elevation-3">
+            <v-card class="pa-4 elevation-3 rounded-lg v-cardglass-effect">
               <v-card-title class="px-0">
                 <h2 class="text-h5">Send us a message</h2>
               </v-card-title>
@@ -99,8 +99,8 @@
               <v-card-title class="px-0">
                 <h2 class="text-h5">Contact Information</h2>
               </v-card-title>
-              <v-card-text class="px-0">
-                <v-list density="compact">
+              <v-card-text class="px-0 ">
+                <v-list density="compact ">
                   <v-list-item prepend-icon="mdi-map-marker" class="mb-2">
                     <v-list-item-title>Our Office</v-list-item-title>
                     <v-list-item-subtitle
@@ -224,6 +224,9 @@
   </script>
   
   <style scoped>
+  .contact-us {
+    background: linear-gradient( #eb9b14,  #da2561), url('/images/hero-bg.jpg');
+  }
   .max-width-text {
     max-width: 700px;
   }
@@ -257,4 +260,14 @@
   .map-container:hover .map-overlay {
     opacity: 1;
   }
+
+  .v-cardglass-effect {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 32px;
+    }
+
   </style>  
